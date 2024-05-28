@@ -146,3 +146,7 @@ En Grafana en el menú "Connections \ Datasource"  agregamos un datasource de ti
 
 <img src="./images/step03.PNG">
 
+
+## PASO 4: CREAR DASHBOARD
+
+Se exportó dashboard de Grafana como archivo JSON. Se adjunta dicho archivo [Grafana dashboard.json](https://github.com/educhallenge/whitestackchallenge02/blob/main/Grafana%20dashboard.json)
