@@ -22,7 +22,7 @@ serviceaccount/nginx created
 secret/nginx-tls created
 service/nginx created
 deployment.apps/nginx created
-
+```
 
 ## PASO 2: CREAR SERVICE MONITOR PARA OBTENCIÓN DE MÉTRICAS Y PASO 3: Desplegar Grafana e integrarlo con Prometheus
 
