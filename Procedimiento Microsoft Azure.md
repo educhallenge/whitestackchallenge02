@@ -122,3 +122,8 @@ azureuser@paragon:~$ kubectl port-forward service/my-kube-prometheus-stack-prome
 Forwarding from 0.0.0.0:9090 -> 9090
 Handling connection for 9090
 ```
+
+## PASO 3: DESPLEGAR GRAFANA E INTEGRARLO CON PROMETHEUS
+
+En el paso 2 se desplegó un stack de Prometheus y Grafana, en el cual Grafana ya viene instalado y está configurado automáticamente para usar a Prometheus como datasource, por tanto no es necesario hacer nada adicional en este paso.
+
