@@ -100,3 +100,49 @@ eduardo@vm:~$ kubectl port-forward service/kube-prometheus-stack-prometheus 9090
 Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
 Forwarding from 0.0.0.0:9090 -> 9090
 ```
+
+## PASO 3: DESPLEGAR GRAFANA E INTEGRARLO CON PROMETHEUS
+
+En un server local con Ubuntu 22 se desplegó Grafana usando docker
+
+```
+eduardo@vm:~$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+eduardo@vm:~$ sudo docker run -d -p 3000:3000 --name=grafana grafana/grafana-enterprise
+Unable to find image 'grafana/grafana-enterprise:latest' locally
+latest: Pulling from grafana/grafana-enterprise
+4abcf2066143: Pull complete
+72db4ea52f68: Pull complete
+5d7c6f7faf4f: Pull complete
+9213063c7a06: Pull complete
+f5d9b74cdbda: Pull complete
+7f3c05061126: Pull complete
+1304d6cda511: Pull complete
+ec80b701a02f: Pull complete
+d55f36d32694: Pull complete
+9535f245c480: Pull complete
+Digest: sha256:07f0df051f77a6500f96db6f3b75469bf4003a80ffed7f30972c70db42cca9af
+Status: Downloaded newer image for grafana/grafana-enterprise:latest
+be221031715c8454bb601d5c44fa2890160f776be6c20fc4210dba7e052fce2e
+
+eduardo@vm:~$ sudo docker ps
+CONTAINER ID   IMAGE                        COMMAND     CREATED              STATUS              PORTS                                       NAMES
+be221031715c   grafana/grafana-enterprise   "/run.sh"   About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   grafana
+```
+
+Hacemos port forward a Prometheus para que después pueda ser accedido por Grafana
+
+```
+eduardo@vm:~$ kubectl port-forward svc/kube-prometheus-stack-prometheus 9090 --address="0.0.0.0" -n monitoring
+Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
+Forwarding from 0.0.0.0:9090 -> 9090
+Handling connection for 9090
+```
+
+Ingresamos a Grafana usando la dirección IP del servidor local, en este caso es http://192.168.148.148:3000
+
+En Grafana en el menú "Connections \ Datasource"  agregamos un datasource de tipo Prometheus. En el campo "Prometheus server URL" escribimos http://192.168.148.148:9090.  Dejamos por defecto todos los demás campos y guardamos el datasource.
+
+<img src="./images/step03.PNG">
+
